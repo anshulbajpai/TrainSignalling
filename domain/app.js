@@ -8,6 +8,10 @@ var train
 
 	var route = new Route(1, blocks);
 	
-	train = new Train(new Position(0,0), new TrainController(route, bus));
+	new MainController([route], bus);
+
+	train = new Train(new Position(-1,0), new TrainController(route, bus));
+
+
 }(new Bus()));
 

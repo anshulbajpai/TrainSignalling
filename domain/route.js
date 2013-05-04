@@ -1,48 +1,6 @@
 var Route = function(id, blocks){
 	this.id = id;
-	this.currentBlockIndex = 0;
 	this.blocks = blocks;
-};
-
-Route.prototype._isSafe = function(position){
-	if(this._currentBlockContains(position)){
-		return true;
-	}
-	if(!this._isOnLastBlock()){
-		return this.blocks[this.currentBlockIndex + 1].isSafe(); 
-	}
-	return false;
-};
-
-Route.prototype._isOnLastBlock = function(){
-	return (this.blocks.length -1) === this.currentBlockIndex;
-};
-
-Route.prototype._isEnd = function(position){
-	if(!this._isOnLastBlock()){
-		return false;
-	}
-	return this.blocks[this.currentBlockIndex].isLastPosition(position);
-};
-
-Route.prototype.canMove = function(position){
-	return !this._isEnd(position) && this._isSafe(position);
-};
-
-Route.prototype.update = function(position){
-	if(!this._currentBlockContains(position)){
-		this.currentBlockIndex = this.currentBlockIndex + 1;		
-	}
-};
-
-Route.prototype._currentBlockContains = function(position){
-	return this.blocks[this.currentBlockIndex].contains(position);
-};
-
-Route.prototype.getBlockIds = function(){
-	return this.blocks.map(function(block){
-		return block.getId();
-	}); 
 };
 
 Route.prototype.getId = function(){
@@ -52,10 +10,46 @@ Route.prototype.getId = function(){
 Route.prototype.updateBlock = function(blockId, state){
 	var block = this.blocks.filter(function(block){
 		return block.getId() === blockId;
-	})[0];
+	});
+	if(block.length == 0){
+		console.warn("No block found with id = " + blockId);
+		return;
+	}
 	block.updateState(state);
 };
 
-Route.prototype.currentBlockId = function(){
-	return this.blocks[this.currentBlockIndex].getId();
+Route.prototype.currentBlockId = function(position){
+	var block = this.findBlock(position);
+	if(block === null){
+		throw "No currentBlockId found for given position";
+		return;
+	}
+	return block.getId();
+};
+
+Route.prototype.findBlock = function(position){
+	var matchingBlocks = this.blocks.filter(function(block){
+		return block.contains(position);
+	});
+	if(matchingBlocks.length == 0){
+		return null;
+	}
+	return matchingBlocks[0];
+};
+
+Route.prototype.canMove = function(position){
+	var block = this.findBlock(position);
+	if(block === null){
+		return false;
+	}
+	if(block.startsWith(position)){
+		return block.isSafe();
+	}
+	return true;
+};
+
+Route.prototype.getBlockIds = function(){
+	return this.blocks.map(function(block){
+		return block.getId();
+	});	
 };

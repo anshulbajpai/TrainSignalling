@@ -20,5 +20,8 @@ Position.prototype.new = function(deltaX, deltaY){
 };
 
 Position.prototype.equals = function(other){	
+	if(other === undefined || other === null || !(other instanceof Position)){
+		return false;
+	}
 	return this.x === other.x && this.y === other.y;
 };
