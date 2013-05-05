@@ -38,18 +38,35 @@ $(function() {
 	}	
 	
 	var route = new Route(1, blocks);
-	var train = new Train(new Position(leftOffset - 1, topOffset), new TrainController(route, bus));
+	var train1 = new Train(new Position(leftOffset - 1, topOffset), new TrainController(route, bus));
+	var train2 = new Train(new Position(leftOffset - 1, topOffset), new TrainController(route, bus));
 
-	var $trainDiv = $('<div></div>');
-	$trainDiv.addClass("train");
-	$trainDiv.css("background-color", "brown");
-	$trainDiv.css("left", train.getPosition().getX());		
-	$trainDiv.css("top", train.getPosition().getY());	
-	$main.append($trainDiv);
+	var $train1Div = $('<div id="train1"></div>');
+	$train1Div.addClass("train");
+	$train1Div.css("background-color", "brown");
+	$train1Div.css("left", train1.getPosition().getX());		
+	$train1Div.css("top", train1.getPosition().getY());	
+	$main.append($train1Div);
 
-	var timer = setInterval(function() {
-		train.move();
-		$trainDiv.css("left", train.getPosition().getX());		
-		$trainDiv.css("top", train.getPosition().getY());			
+	var $train2Div = $('<div id="train2"></div>');
+	$train2Div.addClass("train");
+	$train2Div.css("background-color", "brown");
+	$train2Div.css("left", train2.getPosition().getX());		
+	$train2Div.css("top", train2.getPosition().getY());	
+	$main.append($train2Div);
+
+	var timer1 = setInterval(function() {
+		train1.move();
+		$train1Div.css("left", train1.getPosition().getX());		
+		$train1Div.css("top", train1.getPosition().getY());			
 	}, 25);
+
+	setTimeout(function(){
+		var timer2 = setInterval(function() {
+			train2.move();
+			$train2Div.css("left", train2.getPosition().getX());		
+			$train2Div.css("top", train2.getPosition().getY());			
+		}, 50);		
+	}, 2000); 
+
 });
