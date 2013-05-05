@@ -1,5 +1,6 @@
-var Signal = function(blockId, bus) {
+var Signal = function(blockId, position,bus) {
 	this.blockId = blockId;
+	this.position = position;
 	this.bus = bus;
 	this.state = State.GREEN;
 	this._subscribeForUpdates();
@@ -11,4 +12,13 @@ Signal.prototype._subscribeForUpdates = function() {
 
 Signal.prototype.onBlockUpdated = function(blockId, state) {
 	this.state = state;
+	this.signalChangeCallback(state);
+};
+
+Signal.prototype.getPosition = function() {
+	return this.position;
+};
+
+Signal.prototype.notifyStateChange = function(callback) {
+	this.signalChangeCallback = callback;
 };

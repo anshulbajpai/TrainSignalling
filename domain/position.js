@@ -3,6 +3,14 @@ var Position = function(x, y){
 	this.y = y;
 };
 
+Position.prototype.getX = function() {
+	return this.x;
+};
+
+Position.prototype.getY = function() {
+	return this.y;
+};
+
 Position.prototype.move = function(){	
 	return this.new(1,0);
 };

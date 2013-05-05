@@ -9,3 +9,7 @@ Train.prototype.move = function(){
 		this.trainController.update(this.position);		
 	}
 };
+
+Train.prototype.getPosition = function() {
+	return this.position;
+};
