@@ -8,18 +8,16 @@ Route.prototype.getId = function(){
 };
 
 Route.prototype.updateBlock = function(blockId, state){
-	var block = this.blocks.filter(function(block){
-		return block.getId() === blockId;
-	});
-	if(block.length == 0){
-		console.warn("No block found with id = " + blockId);
+	var block = this._findBlockById(blockId);
+	if(block === null){
+		console.warn("No block found with id = " + blockId + "to updateBlock");
 		return;
 	}
 	block.updateState(state);
 };
 
 Route.prototype.currentBlockId = function(position){
-	var block = this.findBlock(position);
+	var block = this.findBlockByPosition(position);
 	if(block === null){
 		throw "No currentBlockId found for given position";
 		return;
@@ -27,10 +25,20 @@ Route.prototype.currentBlockId = function(position){
 	return block.getId();
 };
 
-Route.prototype.findBlock = function(position){
-	var matchingBlocks = this.blocks.filter(function(block){
+Route.prototype.findBlockByPosition = function(position){
+	return this._findBlockBy(function(block){
 		return block.contains(position);
 	});
+};
+
+Route.prototype._findBlockById = function(blockId){
+	return this._findBlockBy(function(block){
+		return block.getId() === blockId;
+	});
+};
+
+Route.prototype._findBlockBy = function(predicate){
+	var matchingBlocks = this.blocks.filter(predicate);
 	if(matchingBlocks.length == 0){
 		return null;
 	}
@@ -38,7 +46,7 @@ Route.prototype.findBlock = function(position){
 };
 
 Route.prototype.canMove = function(position){
-	var block = this.findBlock(position);
+	var block = this.findBlockByPosition(position);
 	if(block === null){
 		return false;
 	}

@@ -7,7 +7,7 @@ var TrainController = function(route, bus){
 TrainController.prototype._subscribeForUpdates = function(){
 	var self = this;
 	this.route.getBlockIds().forEach(function(blockId){
-		self.bus.subscribe("state.change.block."+ blockId, self._onBlockUpdated, self);	
+		self.bus.subscribe("state.change.block."+ blockId, self.onBlockUpdated, self);	
 	});	
 };
 
@@ -16,12 +16,15 @@ TrainController.prototype.canMove = function(position){
 };
 
 TrainController.prototype.update = function(position){
-	var block = this.route.findBlock(position);
+	var block = this.route.findBlockByPosition(position);
+	if(block === null){
+		throw "No block found to mark occupied";
+	}
 	if(block.startsWith(position)){
 		this.bus.trigger("block.occupied",[this.route.getId(),block.getId()]);
 	}
 };
 
-TrainController.prototype._onBlockUpdated = function(blockId, state){
+TrainController.prototype.onBlockUpdated = function(blockId, state){
 	this.route.updateBlock(blockId, state);	
 }; 
