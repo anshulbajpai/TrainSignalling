@@ -1,7 +1,6 @@
 var UIController = function(bus) {
 
 	var $route = $('#route');
-	var $main = $('#main');
 	var leftOffset = $route.position().left;
 	var topOffset = $route.position().top
 	var blockCount = 9;
@@ -16,12 +15,12 @@ var UIController = function(bus) {
 
 		setInterval(function() {
 			train1.move();
-		}, 30);
+		}, 10);
 
 		setTimeout(function(){
 			setInterval(function() {
 				train2.move();
-			}, 25);		
+			}, 10);		
 		}, 1000); 
 	};
 
@@ -35,18 +34,7 @@ var UIController = function(bus) {
 
 	var createTrainElement = function(id, route, speed) {
 		var train = new Train(new Position(leftOffset - 1, topOffset), new TrainController(route, bus), speed);		
-		var $trainDiv = createTrainDiv(train, id);
-		return new TrainElement(train, $trainDiv);
-	};
-
-	var createTrainDiv = function(train, id) {
-		var $trainDiv = $('<div id="'+ id +'"></div>');
-		$trainDiv.addClass("train");
-		$trainDiv.css("background-color", "brown");
-		$trainDiv.css("left", train.getPosition().getX());		
-		$trainDiv.css("top", train.getPosition().getY());	
-		$main.append($trainDiv);
-		return $trainDiv;
+		return new TrainElement(train, id);
 	};
 
 	var createMainController = function() {
@@ -64,21 +52,7 @@ var UIController = function(bus) {
 
 	var createSignals = function() {
 		for(var i = 1; i <= blockCount; i++){
-			var signal = new Signal(i, new Position((i-1)*blockLength + leftOffset,topOffset), bus);
-			createSignalDiv(signal, i);
+			new SignalElement(i, new Position((i-1)*blockLength + leftOffset,topOffset), bus);
 		}
 	};
-
-	var createSignalDiv = function(signal, index) {
-		var $signalDiv = $('<div id="signal'+ index+'"></div>');
-		$signalDiv.addClass("signal");
-		$signalDiv.css("background-color", "green");		
-		$signalDiv.css("left", signal.getPosition().getX());		
-		$signalDiv.css("top", signal.getPosition().getY());				
-		$main.append($signalDiv);
-		signal.notifyStateChange(function(state) {
-			$signalDiv.css("background-color", state.toLowerCase());		
-		});
-	};
-
 };
