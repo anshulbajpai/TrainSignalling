@@ -11,8 +11,8 @@ Position.prototype.getY = function() {
 	return this.y;
 };
 
-Position.prototype.move = function(){	
-	return this.new(1,0);
+Position.prototype.move = function(deltaX, deltaY){	
+	return this.new(deltaX, deltaY);
 };
 
 Position.prototype.isLessThan = function(other){	
