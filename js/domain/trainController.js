@@ -11,13 +11,13 @@ TrainController.prototype._subscribeForUpdates = function(){
 	});	
 };
 
-TrainController.prototype.canMove = function(currentPosition, deltaPosition){
-	return this.route.canMove(currentPosition, deltaPosition);
+TrainController.prototype.canMove = function(currentPosition, newPosition){
+	return this.route.canMove(currentPosition, newPosition);
 };
 
 TrainController.prototype.update = function(oldPosition, newPosition){
 	var nextBlock = this.route.findBlockByPosition(newPosition);
-	if(!this.route.areOnSameBlock(oldPosition, newPosition)){
+	if(this.route.areNotOnSameBlock(oldPosition, newPosition)){
 		this.bus.trigger("block.occupied",[this.route.getId(),nextBlock.getId()]);
 	}
 };

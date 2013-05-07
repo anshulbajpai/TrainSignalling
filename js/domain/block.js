@@ -22,7 +22,7 @@ Block.prototype.contains = function(position){
 };
 
 Block.prototype._lastPosition = function(){
-	return this.startPosition.new(this.length-1, 0);
+	return this.startPosition.add(new Position(this.length-1, 0));
 };
 
 Block.prototype.occupy = function(){

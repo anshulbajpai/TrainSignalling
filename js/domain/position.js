@@ -11,12 +11,8 @@ Position.prototype.getY = function() {
 	return this.y;
 };
 
-Position.prototype.move = function(deltaX, deltaY){	
-	return this.new(deltaX, deltaY);
-};
-
 Position.prototype.add = function(position){	
-	return this.new(position.x, position.y);
+	return new Position(this.x + position.x, this.y + position.y);
 };
 
 Position.prototype.isLessThan = function(other){	
@@ -25,10 +21,6 @@ Position.prototype.isLessThan = function(other){
 
 Position.prototype.isGreaterThan = function(other){	
 	return this.x > other.x;
-};
-
-Position.prototype.new = function(deltaX, deltaY){	
-	return new Position(this.x + deltaX, this.y + deltaY);
 };
 
 Position.prototype.equals = function(other){	

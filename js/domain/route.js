@@ -7,14 +7,12 @@ Route.prototype.getId = function(){
 	return this.id;
 };
 
-
-Route.prototype.canMove = function(currentPosition, deltaPosition){
-	var newPosition = currentPosition.add(deltaPosition);
+Route.prototype.canMove = function(currentPosition, newPosition){
 	var nextBlock = this.findBlockByPosition(newPosition);
 	if(nextBlock === null){
 		return false;
 	}
-	if(!this.areOnSameBlock(currentPosition, newPosition)){
+	if(this.areNotOnSameBlock(currentPosition, newPosition)){
 		return nextBlock.isSafe();
 	}
 	return true;
@@ -64,11 +62,11 @@ Route.prototype.getBlockIds = function(){
 	});	
 };
 
-Route.prototype.areOnSameBlock = function(firstPosition, secondPosition) {
+Route.prototype.areNotOnSameBlock = function(firstPosition, secondPosition) {
 	var currentBlock = this.findBlockByPosition(firstPosition);
 	var nextBlock = this.findBlockByPosition(secondPosition);
 	if(currentBlock == null || nextBlock === null){
-		return false;
+		return true;
 	}
-	return nextBlock.equals(currentBlock);
+	return !nextBlock.equals(currentBlock);
 };
