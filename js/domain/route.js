@@ -7,6 +7,19 @@ Route.prototype.getId = function(){
 	return this.id;
 };
 
+
+Route.prototype.canMove = function(currentPosition, deltaPosition){
+	var newPosition = currentPosition.add(deltaPosition);
+	var nextBlock = this.findBlockByPosition(newPosition);
+	if(nextBlock === null){
+		return false;
+	}
+	if(!this.areOnSameBlock(currentPosition, newPosition)){
+		return nextBlock.isSafe();
+	}
+	return true;
+};
+
 Route.prototype.updateBlock = function(blockId, state){
 	var block = this._findBlockById(blockId);
 	if(block === null){
@@ -45,19 +58,17 @@ Route.prototype._findBlockBy = function(predicate){
 	return matchingBlocks[0];
 };
 
-Route.prototype.canMove = function(position){
-	var block = this.findBlockByPosition(position);
-	if(block === null){
-		return false;
-	}
-	if(block.startsWith(position)){
-		return block.isSafe();
-	}
-	return true;
-};
-
 Route.prototype.getBlockIds = function(){
 	return this.blocks.map(function(block){
 		return block.getId();
 	});	
+};
+
+Route.prototype.areOnSameBlock = function(firstPosition, secondPosition) {
+	var currentBlock = this.findBlockByPosition(firstPosition);
+	var nextBlock = this.findBlockByPosition(secondPosition);
+	if(currentBlock == null || nextBlock === null){
+		return false;
+	}
+	return nextBlock.equals(currentBlock);
 };

@@ -13,10 +13,6 @@ Block.prototype.updateState = function(state){
 	return this.state = state;
 };
 
-Block.prototype.startsWith = function(position){
-	return this.startPosition.equals(position);
-};
-
 Block.prototype.isSafe = function(){
 	return this.state === State.GREEN;
 };
@@ -31,4 +27,11 @@ Block.prototype._lastPosition = function(){
 
 Block.prototype.occupy = function(){
 	this.state = State.RED;
+};
+
+Block.prototype.equals = function(other){
+	if(other === undefined || other === null || !(other instanceof Block)){
+		return false;
+	}
+	return this.id === other.id;
 };

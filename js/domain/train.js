@@ -5,9 +5,11 @@ var Train = function(startPosition, trainController, speed){
 };
 
 Train.prototype.move = function(){	
-	if(this.trainController.canMove(this.position.move(1, 0))){
+	var deltaPosition = new Position(this.speed, 0);
+	if(this.trainController.canMove(this.position, deltaPosition)){
+		var oldPosition = this.position;
 		this.position = this.position.move(this.speed, 0);
-		this.trainController.update(this.position);		
+		this.trainController.update(oldPosition, this.position);		
 	}
 };
 

@@ -15,6 +15,10 @@ Position.prototype.move = function(deltaX, deltaY){
 	return this.new(deltaX, deltaY);
 };
 
+Position.prototype.add = function(position){	
+	return this.new(position.x, position.y);
+};
+
 Position.prototype.isLessThan = function(other){	
 	return this.x < other.x;
 };

@@ -11,7 +11,7 @@ var UIController = function(bus) {
 		createMainController();
 		var route = createRoute();
 		var train1 = createTrainElement("train1", route, 1);
-		var train2 = createTrainElement("train2", route, 2);
+		var train2 = createTrainElement("train2", route, 6);
 
 		setInterval(function() {
 			train1.move();
