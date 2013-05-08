@@ -1,4 +1,4 @@
-describe("block",function() {
+describe("Block",function() {
 	
 	it("tells if the block is safe",function() {
 		expect(new Block(null,null,null,State.GREEN).isSafe()).toBeTruthy();

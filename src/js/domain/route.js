@@ -31,7 +31,6 @@ Route.prototype.currentBlockId = function(position){
 	var block = this.findBlockByPosition(position);
 	if(block === null){
 		throw "No currentBlockId found for given position";
-		return;
 	}
 	return block.getId();
 };
