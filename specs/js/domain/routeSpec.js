@@ -1,4 +1,4 @@
-describe("route",function() {
+describe("Route",function() {
 
 	var route = new Route(1, [
 		new Block(1, 10, new Position(0,0), State.GREEN),
@@ -24,6 +24,7 @@ describe("route",function() {
 			expect(route.currentBlockId(new Position(12,0))).toEqual(2);
 		});
 
+		// IGNORED
 		// it("throws error when position could not be found",function() {
 		// 	expect(route.currentBlockId(new Position(-1,0))).toThrow("");			
 		// });

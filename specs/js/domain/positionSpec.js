@@ -1,4 +1,4 @@
-describe("Position Spec", function() {
+describe("Position", function() {
 	it("adds position",function() {
 		expect(new Position(5,5).add(new Position(1,2))).toEqual(new Position(6,7));
 	});

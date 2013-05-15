@@ -16,8 +16,8 @@ TrainController.prototype.canMove = function(currentPosition, newPosition){
 };
 
 TrainController.prototype.update = function(oldPosition, newPosition){
-	var nextBlock = this.route.findBlockByPosition(newPosition);
 	if(this.route.areNotOnSameBlock(oldPosition, newPosition)){
+		var nextBlock = this.route.findBlockByPosition(newPosition);
 		this.bus.trigger("block.occupied",[this.route.getId(),nextBlock.getId()]);
 	}
 };
