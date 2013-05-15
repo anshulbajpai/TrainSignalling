@@ -1,6 +1,9 @@
 describe("Contoller Route",function() {
-	var contollerBlockSpy = jasmine.createSpyObj('controllerblock', ['findBlock']);
-	var contollerRoute = new ControllerRoute(1,contollerBlockSpy);
+	var contollerBlockSpy, contollerRoute;
+	beforeEach(function() {
+		contollerBlockSpy = jasmine.createSpyObj('controllerblock', ['findBlock']);
+		contollerRoute = new ControllerRoute(1,contollerBlockSpy);
+	});
 
 	it("finds block by id",function() {
 		var blockId = 123;
