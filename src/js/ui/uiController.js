@@ -12,6 +12,8 @@ var UIController = function(bus) {
 		var route = createRoute();
 		var train1 = createTrainElement("train1", route, 1);
 		var train2 = createTrainElement("train2", route, 6);
+		$('#main').append(train1.getUIElement());
+		$('#main').append(train2.getUIElement());
 
 		setInterval(function() {
 			train1.move();
@@ -52,7 +54,7 @@ var UIController = function(bus) {
 
 	var createSignals = function() {
 		for(var i = 1; i <= blockCount; i++){
-			new SignalElement(i, new Position((i-1)*blockLength + leftOffset,topOffset), bus);
+			$('#main').append(new SignalElement(i, new Position((i-1)*blockLength + leftOffset,topOffset), bus).getUIElement());
 		}
 	};
 };

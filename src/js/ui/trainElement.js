@@ -13,9 +13,11 @@ TrainElement.prototype.move = function() {
 TrainElement.prototype._createTrainDiv = function() {
 	var $trainDiv = $('<div id="'+ this.id +'"></div>');
 	$trainDiv.addClass("train");
-	$trainDiv.css("background-color", "brown");
 	$trainDiv.css("left", this.train.getPosition().getX());		
 	$trainDiv.css("top", this.train.getPosition().getY());	
-	$('#main').append($trainDiv);
 	return $trainDiv;
+};
+
+TrainElement.prototype.getUIElement = function() {
+	return this.$trainDiv;
 };

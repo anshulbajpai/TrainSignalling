@@ -12,7 +12,6 @@ SignalElement.prototype._createSignalDiv = function() {
 	$signalDiv.css("background-color", "green");		
 	$signalDiv.css("left", this.position.getX());		
 	$signalDiv.css("top", this.position.getY());				
-	$('#main').append($signalDiv);
 	return $signalDiv;
 };
 
@@ -22,4 +21,8 @@ SignalElement.prototype._subscribeForUpdates = function() {
 
 SignalElement.prototype.onBlockUpdated = function(blockId, state) {
 	this.$signalDiv.css("background-color", state.toLowerCase());		
+};
+
+SignalElement.prototype.getUIElement = function() {
+	return this.$signalDiv;
 };
